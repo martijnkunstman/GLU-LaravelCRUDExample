@@ -43,7 +43,7 @@ class CategoryController extends Controller
             'name' => 'required',
             'desc' => 'required',
             //'active' => 'required',
-        ]);
+        ]);      
     
         Category::create($request->all());
      
@@ -88,9 +88,12 @@ class CategoryController extends Controller
             //'active' => 'required',
         ]);
 
-        //var_dump($request);
-        //exit();
-    
+        if ($request->active == NULL) {
+            $request->merge([
+                'active' => 0,
+            ]);
+        }        
+  
         $category->update($request->all());
     
         return redirect()->route('categories.index')
