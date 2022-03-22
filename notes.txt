@@ -1,0 +1,22 @@
+php -v
+->PHP 8.1.2
+composer -v
+->Composer version 2.2.5
+composer create-project laravel/laravel laravelbasics
+->Installing laravel/laravel (v9.1.2)
+cd laravelbasics
+*make database laravelbasics
+*edit .env file (database name)
+php artisan serve
+ctrl+c
+php artisan migrate
+php artisan make:model Category -a
+*edit migration
+*edit factory
+*edit seeder
+php artisan migrate
+php artisan db:seed
+*check database
+php artisan migrate:fresh
+php artisan make:resource CategoryResource
+
