@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('desc');
-            $table->date('date');
-            $table->string('url'); 
-            $table->string('img'); 
+            $table->date('date')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->string('url')->default("");
+            $table->string('img')->default("");
             $table->boolean('active')->default(0);
             $table->timestamps();
         });
