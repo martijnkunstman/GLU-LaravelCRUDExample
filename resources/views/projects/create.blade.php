@@ -23,7 +23,7 @@
     </div>
 @endif
    
-<form action="{{ route('projects.store') }}" method="POST">
+<form action="{{ route('projects.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
   
      <div class="row">
@@ -39,6 +39,14 @@
                 <textarea class="form-control" style="height:150px" name="desc" placeholder="Enter Description"></textarea>
             </div>
         </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Description:</strong>
+                <input type="file" name="file" placeholder="Choose image name" id="file">
+            </div>
+        </div>        
+
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Active:</strong>

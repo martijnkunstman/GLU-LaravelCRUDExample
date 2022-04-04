@@ -21,7 +21,8 @@ class ProjectFactory extends Factory
             'desc' => $this->faker->sentence(),
             'date' => $this->faker->date(),
             'url' => $this->faker->url(),
-            'img' => $this->faker->imageUrl(640, 480, 'animals', true),
+            'image_name' => $this->faker->imageUrl(640, 480, 'animals', true),
+            'image_path' => "image_upload",
             'active' => $this->faker->boolean(),
         ];
     }

@@ -27,6 +27,13 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
+                <strong>Image:</strong>
+                {{ $project->image_path}}
+                <img src="{{ asset('storage/app/public/'.$project->image_path) }}" alt="" title="">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
                 <strong>Active:</strong>
                 <input type="checkbox" {{$project->active===1?"checked":""}} name="active" class="form-control" placeholder="Enter Active">
             </div>

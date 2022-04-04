@@ -39,14 +39,28 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
+     
         $request->validate([
             'name' => 'required',
             'desc' => 'required',
+            'file' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            //'image_path' => 'required',
             //'active' => 'required',
-        ]);      
-    
-        Project::create($request->all());
-     
+        ]);   
+        
+        //Project::create($request->all());
+
+        $project = new Project;
+        if($request->file()) {
+            $project->name = $request->name;
+            $project->desc = $request->desc;
+            $fileName = time().'_'.$request->file->getClientOriginalName();
+            $filePath = $request->file('file')->storeAs('public', $fileName);
+            $project->image_name = $request->file->getClientOriginalName();
+            $project->image_path = $fileName;
+            $project->save();
+        }
+         
         return redirect()->route('projects.index')
                         ->with('success','Project created successfully.');
     }
