@@ -29,7 +29,7 @@
             <div class="form-group">
                 <strong>Image:</strong>
                 {{ $project->image_path}}
-                <img src="../storage/{{$project->image_path}}" alt="" title="">
+                <img src="../storage/{{$project->image_path}}" alt="" title=""  style="max-height:100px;max-width:100px;">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">

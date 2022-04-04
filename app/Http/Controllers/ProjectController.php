@@ -16,8 +16,8 @@ class ProjectController extends Controller
     public function index()
     {
         $data = Project::latest()->paginate(5);
-    
-        return view('projects.index',compact('data'))
+
+        return view('projects.index', compact('data'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -39,30 +39,41 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-     
+
         $request->validate([
             'name' => 'required',
             'desc' => 'required',
             'file' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             //'image_path' => 'required',
             //'active' => 'required',
-        ]);   
-        
+        ]);
+
         //Project::create($request->all());
 
         $project = new Project;
-        if($request->file()) {
+        if ($request->file()) {
             $project->name = $request->name;
             $project->desc = $request->desc;
-            $fileName = time().'_'.$request->file->getClientOriginalName();
+
+            if ($request->active == NULL) {
+                $request->merge([
+                    'active' => 0,
+                ]);
+            } 
+            else
+            {
+                $project->active = 1;
+            }
+            
+            $fileName = time() . '_' . $request->file->getClientOriginalName();
             $filePath = $request->file('file')->storeAs('public', $fileName);
             $project->image_name = $request->file->getClientOriginalName();
             $project->image_path = $fileName;
             $project->save();
         }
-         
+
         return redirect()->route('projects.index')
-                        ->with('success','Project created successfully.');
+            ->with('success', 'Project created successfully.');
     }
 
     /**
@@ -73,7 +84,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return view('projects.show',compact('project'));
+        return view('projects.show', compact('project'));
     }
 
     /**
@@ -84,7 +95,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('projects.edit',compact('project'));
+        return view('projects.edit', compact('project'));
     }
 
     /**
@@ -99,6 +110,7 @@ class ProjectController extends Controller
         $request->validate([
             'name' => 'required',
             'desc' => 'required',
+            //'file' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             //'active' => 'required',
         ]);
 
@@ -106,13 +118,24 @@ class ProjectController extends Controller
             $request->merge([
                 'active' => 0,
             ]);
-        }        
-  
-        $project->update($request->all());
-    
-        return redirect()->route('projects.index')
-                        ->with('success','Project updated successfully');
+        }   
 
+        
+
+        $project->name = $request->name;
+        $project->desc = $request->desc;
+        $project->active = $request->active;
+        if ($request->file()) {
+            $fileName = time() . '_' . $request->file->getClientOriginalName();
+            $filePath = $request->file('file')->storeAs('public', $fileName);
+            $project->image_name = $request->file->getClientOriginalName();
+            $project->image_path = $fileName;
+          }
+
+          $project->save();
+
+        return redirect()->route('projects.index')
+            ->with('success', 'Project updated successfully');
     }
 
     /**
@@ -124,9 +147,8 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $project->delete();
-    
+
         return redirect()->route('projects.index')
-                        ->with('success','Project deleted successfully');
- 
+            ->with('success', 'Project deleted successfully');
     }
 }
