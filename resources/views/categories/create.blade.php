@@ -39,6 +39,23 @@
                 <textarea class="form-control" style="height:150px" name="desc" placeholder="Enter Description"></textarea>
             </div>
         </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Categories:</strong>
+
+                <select id="categories" required="" name="categories" class="form-control">
+
+                <option value="">--Select--</option>
+@foreach($array as $key => $arr)
+  <option value="{{++$key}}" {{ $selectedValue == $key ? 'selected' : '' }}> {{ $arr }}</option>
+@endforeach
+
+                <textarea class="form-control" style="height:150px" name="desc" placeholder="Enter Description"></textarea>
+            </div>
+        </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Active:</strong>

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('url')->default("");
             $table->string('image_name')->default("");
             $table->string('image_path')->default("");
+            $table->integer('cat_id')->default(0);
             $table->boolean('active')->default(0);
             $table->timestamps();
         });

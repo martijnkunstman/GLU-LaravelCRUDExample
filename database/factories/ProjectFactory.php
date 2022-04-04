@@ -24,6 +24,7 @@ class ProjectFactory extends Factory
             'image_name' => $this->faker->imageUrl(640, 480, 'animals', true),
             'image_path' => "image_upload",
             'active' => $this->faker->boolean(),
+            'cat_id' => 0,
         ];
     }
 }

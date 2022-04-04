@@ -30,6 +30,7 @@
             <td>{{ $value->id }}</td>
             <td>{{ $value->name }}</td>
             <td>{{ \Str::limit($value->desc, 100) }}</td>
+            <td>{{ $value->cat }}</td>
             <td><input type="checkbox" id="active" name="active" {{$value->active===1?"checked":""}}></td>
             <td>
                 <form action="{{ route('categories.destroy',$value->id) }}" method="POST">   
